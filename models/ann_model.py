@@ -1,3 +1,10 @@
+import sys
+import os
+os.chdir("../")
+
+os.getcwd()
+import sys
+sys.path.append('C:/Users/joeso/Documents/Homework4/meter_Hw4')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -16,76 +23,16 @@ class ANNModel(BaseANN):
         )
 
 
-     def plot_training_results(history):
-        """
-        Plots training vs validation loss and accuracy to check for overfitting.
-        
-        :param history: The history object returned from model.fit()
-        """
-        # Extract values
-        loss = history.history['loss']
-        val_loss = history.history.get('val_loss', None)  # Validation loss (if available)
-        accuracy = history.history.get('accuracy', None)  # Training accuracy
-        val_accuracy = history.history.get('val_accuracy', None)  # Validation accuracy (if available)
-
-        epochs = range(1, len(loss) + 1)
-
-        # Plot Loss
-        plt.figure(figsize=(12, 5))
-        plt.subplot(1, 2, 1)
-        plt.plot(epochs, loss, 'b-', label="Training Loss")
-        if val_loss:
-            plt.plot(epochs, val_loss, 'r-', label="Validation Loss")
-        plt.xlabel("Epochs")
-        plt.ylabel("Loss")
-        plt.title("Loss Curve")
-        plt.legend()
-
-        # Plot Accuracy (if available)
-        if accuracy:
-            plt.subplot(1, 2, 2)
-            plt.plot(epochs, accuracy, 'b-', label="Training Accuracy")
-            if val_accuracy:
-                plt.plot(epochs, val_accuracy, 'r-', label="Validation Accuracy")
-            plt.xlabel("Epochs")
-            plt.ylabel("Accuracy")
-            plt.title("Accuracy Curve")
-            plt.legend()
-        plt.show()
-
-
-    def train_ann(model, X_train, y_train, X_val, y_val, epochs=100, batch_size=32):
-        """
-        Trains the ANN model and plots results.
-        
-        :param model: Compiled ANN model
-        :param X_train: Training data
-        :param y_train: Training labels
-        :param X_val: Validation data
-        :param y_val: Validation labels
-        :param epochs: Number of training epochs
-        :param batch_size: Batch size for training
-        :return: Trained model
-        """
-        history = model.fit(X_train, y_train, validation_data=(X_val, y_val), 
-                            epochs=epochs, batch_size=batch_size, verbose=1)
-
-        # Plot training results
-        plot_training_results(history)
-
-        return model
-
-    # def train(self):
-    #     """Train the ANN model"""
-    #     self.model.fit(self.X_train, self.y_train)
+    def train(self):
+        """Train the ANN model"""
+        self.model.fit(self.X_train, self.y_train)
 
     def test(self):
         """Evaluate the model"""
         y_pred = self.model.predict(self.X_test)
         return accuracy_score(self.y_test, y_pred)
-    
 
-   
+ 
 
     def plot_confusion_matrix(y_true, y_pred, class_labels):
         """
