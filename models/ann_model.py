@@ -16,37 +16,7 @@ class ANNModel(BaseANN):
         )
 
 
-    def train_ann(model, X_train, y_train, X_val, y_val, epochs=100, batch_size=32):
-        """
-        Trains the ANN model and plots results.
-        
-        :param model: Compiled ANN model
-        :param X_train: Training data
-        :param y_train: Training labels
-        :param X_val: Validation data
-        :param y_val: Validation labels
-        :param epochs: Number of training epochs
-        :param batch_size: Batch size for training
-        :return: Trained model
-        """
-        history = model.fit(X_train, y_train, validation_data=(X_val, y_val), 
-                            epochs=epochs, batch_size=batch_size, verbose=1)
-
-        # Plot training results
-        plot_training_results(history)
-        return model
-
-    # def train(self):
-    #     """Train the ANN model"""
-    #     self.model.fit(self.X_train, self.y_train)
-
-    def test(self):
-        """Evaluate the model"""
-        y_pred = self.model.predict(self.X_test)
-        return accuracy_score(self.y_test, y_pred)
-    
-
-    def plot_training_results(history):
+     def plot_training_results(history):
         """
         Plots training vs validation loss and accuracy to check for overfitting.
         
@@ -83,6 +53,39 @@ class ANNModel(BaseANN):
             plt.legend()
         plt.show()
 
+
+    def train_ann(model, X_train, y_train, X_val, y_val, epochs=100, batch_size=32):
+        """
+        Trains the ANN model and plots results.
+        
+        :param model: Compiled ANN model
+        :param X_train: Training data
+        :param y_train: Training labels
+        :param X_val: Validation data
+        :param y_val: Validation labels
+        :param epochs: Number of training epochs
+        :param batch_size: Batch size for training
+        :return: Trained model
+        """
+        history = model.fit(X_train, y_train, validation_data=(X_val, y_val), 
+                            epochs=epochs, batch_size=batch_size, verbose=1)
+
+        # Plot training results
+        plot_training_results(history)
+
+        return model
+
+    # def train(self):
+    #     """Train the ANN model"""
+    #     self.model.fit(self.X_train, self.y_train)
+
+    def test(self):
+        """Evaluate the model"""
+        y_pred = self.model.predict(self.X_test)
+        return accuracy_score(self.y_test, y_pred)
+    
+
+   
 
     def plot_confusion_matrix(y_true, y_pred, class_labels):
         """
